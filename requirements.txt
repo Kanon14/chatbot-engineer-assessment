@@ -1,0 +1,22 @@
+langchain
+langchain-community
+langchain-experimental
+langchain_tavily
+langchain_groq
+langchain_openai
+langgraph
+streamlit
+flask
+flask-cors
+fastapi
+beautifulsoup4
+pypdf
+pinecone[grpc]
+python-dotenv
+notebook
+uvicorn
+pydantic
+httpx
+requests
+from-root
+-e .
