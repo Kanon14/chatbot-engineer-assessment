@@ -1,0 +1,9 @@
+<Outlet Operation Verification>
+Challenge:
+The outlet database was scraped manually and may not reflect real-time updates 
+(like holidays, special closures, or current time), required a verification mechanism 
+to ensure the chatbot doesn’t give misleading info.
+
+Solution:
+- Time check
+- Tavily to search for public holidays, special closures, and current time
