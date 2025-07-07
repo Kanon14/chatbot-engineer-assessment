@@ -1,5 +1,6 @@
 from utils.model_loader import ModelLoader
 from prompt_library.prompt import SYSTEM_PROMPT
+from tools import tools
 from langgraph.graph import StateGraph, MessagesState, END, START
 from langgraph.prebuilt import ToolNode, tools_condition
 
@@ -9,9 +10,7 @@ class GraphBuilder():
         self.model_loader = ModelLoader(model_provider=model_provider)
         self.llm = self.model_loader.load_llm()
         
-        self.tools = []
-
-        self.tools.extend()
+        self.tools = tools
         
         self.llm_with_tools = self.llm.bind_tools(tools=self.tools)
         

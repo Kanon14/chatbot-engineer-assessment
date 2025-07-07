@@ -21,20 +21,18 @@ def convert_to_text_chunks(products):
         text = f"Product Name: {item.get('product')}\n"
         text += f"Category: {item.get('category')}\n"
         text += f"Price: {item.get('price')}\n"
+        text += f"Discount: {item.get('discount')}\n"
         text += f"Status: {item.get('status')}\n"
-        text += f"Features: {', '.join(item.get('features', []))}\n"
-        if 'colors' in item:
-            text += f"Colors: {', '.join(item['colors'])}\n"
-        if 'product_specs' in item:
-            specs = ', '.join([f"{k}: {v}" for k, v in item['product_specs'].items()])
-            text += f"Specs: {specs}\n"
-        if 'url' in item:
-            text += f"URL: {item['url']}\n"
+        text += f"Colors: {item.get('colors')}\n"
+        text += f"Product Specs: {item.get('prod_specs')}\n"
+        text += f"Features: {item.get('features')}\n"
+        text += f"Warranty: {item.get('warranty')}\n"
+        text += f"URL: {item.get('url')}\n"
         docs.append(text.strip())
-    splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=20)
+    splitter = RecursiveCharacterTextSplitter(chunk_size=600, chunk_overlap=20)
     return splitter.create_documents(docs)
 
-def create_product_vector_store_pinecone(yaml_path, index_name="zus-products"):
+def create_product_vector_store_pinecone(yaml_path, index_name): 
     product_data = load_yaml(yaml_path)
     text_chunks = convert_to_text_chunks(product_data)
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-MiniLM-L6-v2")
