@@ -17,7 +17,7 @@ class ConfigLoader:
         return self.config[key]
 
 class ModelLoader(BaseModel):
-    model_provider: Literal["groq", "openai"] = "groq"
+    model_provider: Literal["groq", "openai"]
     config: Optional[ConfigLoader] = Field(default=None, exclude=True)
 
     def model_post_init(self, __context: Any) -> None:

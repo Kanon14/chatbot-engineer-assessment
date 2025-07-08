@@ -1,7 +1,7 @@
 from agent.workflow import GraphBuilder
 
 # Initialize the chatbot graph
-builder = GraphBuilder(model_provider="groq")
+builder = GraphBuilder(model_provider="openai")
 chatbot_graph = builder()
 
 # Run test conversation

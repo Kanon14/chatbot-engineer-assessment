@@ -6,7 +6,7 @@ from langgraph.prebuilt import ToolNode, tools_condition
 
 
 class GraphBuilder():
-    def __init__(self,model_provider: str = "openai"):
+    def __init__(self, model_provider: str = "groq"):
         self.model_loader = ModelLoader(model_provider=model_provider)
         self.llm = self.model_loader.load_llm()
         
