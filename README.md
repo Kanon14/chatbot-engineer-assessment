@@ -32,27 +32,30 @@ This is an intelligent assistant designed for ZUS Coffee to help customers inqui
 ```grapql
 chatbot-engineer-assessment/
 │
-├── streamlit_app.py          # Streamlit frontend
-├── main.py                   # LangGraph agent + workflow
-├── zus_store.py              # To create both outlet and product doc store
-├── tools/                    # All custom tools used in the agent
+├── streamlit_app.py           # Streamlit frontend
+├── main.py                    # LangGraph agent + workflow
+├── zus_store.py               # To create both outlet and product doc store
+├── tools/                     # All custom tools used in the agent
 │   ├── product_tool.py
 │   ├── outlet_lookup_tool.py
 │   ├── outlet_open_tool.py
 │   ├── cost_calculator.py
 │   └── __init__.py
 ├── data/
-│   ├── zus_outlets.db        # SQLite DB of outlets
-│   └── zus_products.yaml     # YAML product catalog
+│   ├── zus_outlets.db         # SQLite DB of outlets
+│   └── zus_products.yaml      # YAML product catalog
 ├── utils/
-│   ├── config_loader.py      # Loads configuration from YAML
-│   ├── model_loader.py       # Loads LLM provider
-│   ├── outlet_store.py       # Create outlet SQLite DB
-│   └── product_store.py      # Create product doc vector store
+│   ├── config_loader.py       # Loads configuration from YAML
+│   ├── model_loader.py        # Loads LLM provider
+│   ├── outlet_store.py        # Create outlet SQLite DB
+│   └── product_store.py       # Create product doc vector store
 ├── prompt_library/
-│   └── prompt.py             # SYSTEM_PROMPT definition
+│   └── prompt.py              # SYSTEM_PROMPT definition
 ├── agent/
-│   └── workflow.py           # LangGraph agent workflow
+│   └── workflow.py            # LangGraph agent workflow
+├── documentation/
+│   ├── zus_chatbot_report.pdf # Report on chatbot assessment from setup to test
+│   └── demo.mp4               # Demo video of the chatbot in action
 ├── requirements.txt
 └── README.md
 ```
@@ -86,7 +89,7 @@ OPENAI_API_KEY=your_openai_key
 python zus_store.py
 ```
 
-## 🤖 How to Run (2 Terminals Required)
+## 🤖 How to Run (Require Two Terminals; Refer to `documentation/demo.mp4`)
 1. **Execute the main.py via FastAPI:**
 ```bash
 uvicorn main:app --reload --port 8000
@@ -108,6 +111,17 @@ open http://localhost:<port>
 - "Calculate total price for Sabrina Pink and Lucky Pink cups."
 - "Which cup comes with ceramic interior?"
 - "What are the colors for the All-Day Cup?"
+- "What is the product specification for the All-Day Cup?"
+
+
+## ⚖️ Key Trade-Offs Table
+| **Aspect**               | **Choice A**                            | **Choice B**                         | **Trade-Off Summary**                                                                 |
+| ------------------------ | --------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------- |
+| **Data Storage**         | YAML + SQLite (Simple, Local)           | CMS or Cloud DB (Scalable, Dynamic)  | Easy to manage and setup locally, but lacks scalability or dynamic updates.           |
+| **Search Approach**      | Pinecone Vector Store (Semantic Search) | Keyword DB Query                     | More flexible and accurate but may be slower; keyword is faster but fragile.          |
+| **LLM API**              | OpenAI (Fast, Powerful)                 | Local HuggingFace (Low cost, slower) | OpenAI is powerful and consistent, but costly. Local is cheaper but less accurate.    |
+| **Tool-based Execution** | Langchain Tools (Structured, Modular)   | Prompt-only (LLM-Driven Answers)     | Tools ensure correctness but increase complexity; pure prompting is easier but risky. |          |
+| **Workflow Design**      | LangGraph Agentic Flow                  | Simple Sequential Prompting          | LangGraph allows branching logic, but harder to debug than linear prompts.            |
 
 ## 📃 License
 This project is provided as part of a Chatbot Engineer Assessment. For academic and evaluation use only.
