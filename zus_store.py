@@ -6,7 +6,7 @@ if __name__ == "__main__":
     # Paths
     outlet_csv = "data/zus_outlets.csv"
     outlet_db = "data/outlets.db"
-    product_yaml = "data/zus_trial.yaml"
+    product_yaml = "data/zus_products.yaml"
     pinecone_index = "zus-products"
 
     # Ensure folders exist
