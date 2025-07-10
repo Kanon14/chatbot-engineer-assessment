@@ -63,7 +63,7 @@ chatbot-engineer-assessment/
 ## ⚙️ Setup Instructions
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/yourusername/zus-chatbot.git
+git clone https://github.com/Kanon14/chatbot-engineer-assessment
 cd zus-chatbot
 ```
 
