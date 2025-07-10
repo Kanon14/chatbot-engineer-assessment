@@ -8,11 +8,8 @@ langchain_openai
 langchain-pinecone
 langgraph
 streamlit
-flask
-flask-cors
 fastapi
 beautifulsoup4
-pypdf
 sentence-transformers
 pinecone[grpc]
 python-dotenv
