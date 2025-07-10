@@ -1,15 +1,8 @@
 import streamlit as st
+import requests
 import datetime
-import os
-from agent.workflow import GraphBuilder
 
-# Cache the LangGraph once
-@st.cache_resource
-def load_react_app():
-    graph = GraphBuilder(model_provider="openai")
-    return graph()
-
-react_app = load_react_app()
+BASE_URL = "http://localhost:8000"  # Your FastAPI or Flask backend endpoint
 
 st.set_page_config(
     page_title="☕ ZUS Coffee Agentic Chatbot",
@@ -20,29 +13,33 @@ st.set_page_config(
 
 st.title("☕ ZUS Coffee Agentic Chatbot")
 
+# Initialize chat history
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 
 st.header("Ask anything about ZUS products, outlets, or promotions!")
 
+# Chat input form
 with st.form(key="chat_form", clear_on_submit=True):
     user_input = st.text_input("You:", placeholder="e.g. What tumblers are available?")
     submit_button = st.form_submit_button("Send")
 
+# Handle user query
 if submit_button and user_input.strip():
     try:
         with st.spinner("ZUSBot is thinking..."):
-            output = react_app.invoke({"messages": [user_input]})
+            payload = {"question": user_input}
+            response = requests.post(f"{BASE_URL}/query", json=payload)
 
-            if isinstance(output, dict) and "messages" in output:
-                final_output = output["messages"][-1].content
-            else:
-                final_output = str(output)
-
+        if response.status_code == 200:
+            answer = response.json().get("answer", "Sorry, no answer returned.")
             timestamp = datetime.datetime.now().strftime("%H:%M")
-            st.session_state.chat_history.append(("You", user_input, timestamp))
-            st.session_state.chat_history.append(("ZUSBot", final_output, timestamp))
 
+            # Append to history
+            st.session_state.chat_history.append(("You", user_input, timestamp))
+            st.session_state.chat_history.append(("ZUSBot", answer, timestamp))
+        else:
+            st.error(f"ZUSBot failed to respond: {response.text}")
     except Exception as e:
         st.error(f"Something went wrong: {e}")
 

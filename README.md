@@ -119,7 +119,7 @@ open http://localhost:<port>
 | ------------------------ | --------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------- |
 | **Data Storage**         | YAML + SQLite (Simple, Local)           | CMS or Cloud DB (Scalable, Dynamic)  | Easy to manage and setup locally, but lacks scalability or dynamic updates.           |
 | **Search Approach**      | Pinecone Vector Store (Semantic Search) | Keyword DB Query                     | More flexible and accurate but may be slower; keyword is faster but fragile.          |
-| **LLM API**              | OpenAI (Fast, Powerful)                 | Local HuggingFace (Low cost, slower) | OpenAI is powerful and consistent, but costly. Local is cheaper but less accurate.    |
+| **LLM API**              | OpenAI or Groq (Free) (Fast, Powerful)  | Local HuggingFace (Low cost, slower) | OpenAI is powerful and consistent, but costly. Local is cheaper but less accurate.    |
 | **Tool-based Execution** | Langchain Tools (Structured, Modular)   | Prompt-only (LLM-Driven Answers)     | Tools ensure correctness but increase complexity; pure prompting is easier but risky. |          |
 | **Workflow Design**      | LangGraph Agentic Flow                  | Simple Sequential Prompting          | LangGraph allows branching logic, but harder to debug than linear prompts.            |
 
